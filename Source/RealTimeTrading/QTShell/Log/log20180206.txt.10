@@ -1,0 +1,34 @@
+2018-02-06 22:15:08,027 [1] DEBUG QTShell.Log4NetLoggerAdapter Logger was created successfully.
+2018-02-06 22:15:08,032 [1] DEBUG QTShell.Log4NetLoggerAdapter Creating module catalog.
+2018-02-06 22:15:08,033 [1] DEBUG QTShell.Log4NetLoggerAdapter Configuring module catalog.
+2018-02-06 22:15:08,037 [1] DEBUG QTShell.Log4NetLoggerAdapter Creating Unity container.
+2018-02-06 22:15:08,055 [1] DEBUG QTShell.Log4NetLoggerAdapter Configuring the Unity container.
+2018-02-06 22:15:08,059 [1] DEBUG QTShell.Log4NetLoggerAdapter Adding UnityBootstrapperExtension to container.
+2018-02-06 22:15:08,113 [1] DEBUG QTShell.Log4NetLoggerAdapter Configuring ServiceLocator singleton.
+2018-02-06 22:15:08,113 [1] DEBUG QTShell.Log4NetLoggerAdapter Configuring region adapters.
+2018-02-06 22:15:08,119 [1] DEBUG QTShell.Log4NetLoggerAdapter Configuring default region behaviors.
+2018-02-06 22:15:08,120 [1] DEBUG QTShell.Log4NetLoggerAdapter Registering Framework Exception Types.
+2018-02-06 22:15:08,120 [1] DEBUG QTShell.Log4NetLoggerAdapter Creating the shell.
+2018-02-06 22:15:08,162 [1] DEBUG QTShell.Log4NetLoggerAdapter Setting the RegionManager.
+2018-02-06 22:15:08,163 [1] DEBUG QTShell.Log4NetLoggerAdapter Updating Regions.
+2018-02-06 22:15:08,178 [1] DEBUG QTShell.Log4NetLoggerAdapter Initializing the shell.
+2018-02-06 22:15:08,226 [1] DEBUG QTShell.Log4NetLoggerAdapter Initializing modules.
+2018-02-06 22:15:08,309 [1] INFO  QTShell.Log4NetLoggerAdapter Module ModuleOrderAndPositions Loaded
+2018-02-06 22:15:08,317 [1] INFO  QTShell.Log4NetLoggerAdapter Module RealTimeQuoteGrid Loaded
+2018-02-06 22:15:08,339 [1] INFO  QTShell.Log4NetLoggerAdapter Module ModuleStrategyManager Loaded
+2018-02-06 22:15:08,453 [1] INFO  QTShell.Log4NetLoggerAdapter Module ModuleOrderTicket Loaded
+2018-02-06 22:15:08,500 [1] ERROR QTShell.Log4NetLoggerAdapter Microsoft.Practices.Prism.Modularity.ModuleInitializeException: An exception occurred while initializing module 'ModuleFramework'. 
+    - The exception message was: 未能找到路径“D:\Workspace\QuantTrading-master\Source\RealTimeTrading\QTShell\Config\basket.xml”的一部分。
+    - The Assembly that the module was trying to be loaded from was:Modules.Framework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+    Check the InnerException property of the exception for more information. If the exception occurred while creating an object in a DI container, you can exception.GetRootException() to help locate the root cause of the problem. 
+   ---> System.IO.DirectoryNotFoundException: 未能找到路径“D:\Workspace\QuantTrading-master\Source\RealTimeTrading\QTShell\Config\basket.xml”的一部分。
+   在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   在 System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   在 System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize, Boolean checkHost)
+   在 System.IO.StreamReader..ctor(String path)
+   在 TradingBase.Basket.DeserializeFromXML(String filename) 位置 D:\Workspace\QuantTrading-master\Source\TradingBase\TradingBase\Security\Basket.cs:行号 166
+   在 Modules.Framework.ModuleFramework.RegisterViewsAndServices() 位置 D:\Workspace\QuantTrading-master\Source\RealTimeTrading\Modules.Framework\ModuleFramework.cs:行号 103
+   在 Modules.Framework.ModuleFramework.Initialize() 位置 D:\Workspace\QuantTrading-master\Source\RealTimeTrading\Modules.Framework\ModuleFramework.cs:行号 92
+   在 Microsoft.Practices.Prism.Modularity.ModuleInitializer.Initialize(ModuleInfo moduleInfo)
+   --- 内部异常堆栈跟踪的结尾 ---

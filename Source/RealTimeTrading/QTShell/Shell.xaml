@@ -1,0 +1,39 @@
+﻿<Window x:Class="QTShell.Shell"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:prism="http://www.codeplex.com/prism"
+        Icon=".\Resources\mainwindow.ico"
+        Title="QuanTrading MainWindow" Height="700" Width="1050" WindowState="Maximized">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="30*"/>
+        </Grid.ColumnDefinitions>        
+        <!-- Left Side -->
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="30*"/>
+            </Grid.RowDefinitions>
+            <ContentControl Grid.Row="0" x:Name="QuoteRegion" prism:RegionManager.RegionName="QuoteRegion" ></ContentControl>
+            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5" Background="#FFBCBCBC"></GridSplitter>
+            <ContentControl Grid.Row="2" x:Name="InfoRegion" prism:RegionManager.RegionName="InfoRegion"></ContentControl>
+        </Grid>
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Stretch" ResizeBehavior="PreviousAndNext" Width="5" Background="#FFBCBCBC"/>
+        
+        <!-- Right Side -->
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="30*"/>
+            </Grid.RowDefinitions>
+            <ContentControl Grid.Row="0" x:Name="OrderRegion" VerticalAlignment="Stretch" prism:RegionManager.RegionName="OrderRegion"></ContentControl>
+            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5" Background="#FFBCBCBC"></GridSplitter>
+            <ContentControl Grid.Row="2" x:Name="StrategyRegion" VerticalAlignment="Stretch" prism:RegionManager.RegionName="StrategyRegion"></ContentControl>
+        </Grid>
+
+    </Grid>
+</Window>
