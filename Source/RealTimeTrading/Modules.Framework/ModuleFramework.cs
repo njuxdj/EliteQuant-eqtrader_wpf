@@ -87,8 +87,13 @@ namespace Modules.Framework
 
             _eventAggregator.GetEvent<ApplicationExitEvent>().Subscribe((o) => Dispose(), true);
             _eventAggregator.GetEvent<ConnectDisconnectEvent>().Subscribe(Start);
-          
+            
             RegisterViewsAndServices();
+
+            _eventAggregator.GetEvent<MarketDataEvent>().Subscribe((tick) => {
+                _tickqueue.Add(tick);
+
+            });
 
             _logger.Log("Module ModuleFramework Loaded", Category.Info, Priority.None);
 

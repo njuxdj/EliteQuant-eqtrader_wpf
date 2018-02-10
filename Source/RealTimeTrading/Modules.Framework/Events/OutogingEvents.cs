@@ -24,7 +24,7 @@ namespace Modules.Framework.Events
 {
 
 
-    public class SendOrderEvent : PubSubEvent<Order>
+    public class SendOrderEvent : PubSubEvent<string>
     {
     }
 

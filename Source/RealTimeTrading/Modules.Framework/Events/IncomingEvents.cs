@@ -66,7 +66,7 @@ namespace Modules.Framework.Events
     public class ContractEvent : PubSubEvent<string>
     {
     }
-    public class GeneralMessageEvent : PubSubEvent<string>
+    public class GeneralMessageEvent : PubSubEvent<GeneralMessage>
     {
     }
 
@@ -82,6 +82,19 @@ namespace Modules.Framework.Events
         public TData Value
         {
             get { return _value; }
+        }
+    }
+
+    public class GeneralMessage {
+
+        public string Time;
+        public string Content;
+
+        public GeneralMessage(string time,string content)
+        {
+            Time = time;
+            Content = content;
+
         }
     }
 }

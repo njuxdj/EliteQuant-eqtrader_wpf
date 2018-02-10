@@ -43,4 +43,3 @@ D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\Modules.StrategyManager.
 D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\Modules.StrategyManager.csproj.CoreCompileInputs.cache
 D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\Modules.StrategyManager.dll
 D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\Modules.StrategyManager.pdb
-D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\GeneratedInternalTypeHelper.g.cs

@@ -17,7 +17,7 @@ namespace QTShell
     {
         #region 字段
 
-        private EventAggregator _eventaggregator;
+        private IEventAggregator _eventaggregator;
         private PairSocket msg_sock;
         private SubscribeSocket tick_sock;
         private Queue<String> outgoing_queue;
@@ -28,17 +28,22 @@ namespace QTShell
 
         #region 构造函数 
 
-        public ClientMessageGateway(EventAggregator eventAggregator, ILoggerFacade logger)
+        public ClientMessageGateway(IEventAggregator eventAggregator, ILoggerFacade logger)
         {
             _eventaggregator = eventAggregator;
             _logger = logger;
-            
+            outgoing_queue = new Queue<string>();
+
+            _eventaggregator.GetEvent<SendOrderEvent>().Subscribe((order)=> {
+                outgoing_queue.Enqueue(order);
+            });
+
             tick_sock = new SubscribeSocket();
             msg_sock = new PairSocket();
 
             NanomsgSocketOptions.SetTimespan(tick_sock.SocketID, SocketOptionLevel.Default, SocketOption.RCVTIMEO, TimeSpan.FromMilliseconds(100));
             NanomsgSocketOptions.SetString(tick_sock.SocketID, SocketOptionLevel.Subscribe, SocketOption.SUB_SUBSCRIBE,"");
-            NanomsgSocketOptions.SetTimespan(msg_sock.SocketID, SocketOptionLevel.Tcp, SocketOption.RCVTIMEO, TimeSpan.FromMilliseconds(100));
+            NanomsgSocketOptions.SetTimespan(msg_sock.SocketID, SocketOptionLevel.Default, SocketOption.RCVTIMEO, TimeSpan.FromMilliseconds(100));
 
             tick_sock.Connect("tcp://127.0.0.1:55555");
             msg_sock.Connect("tcp://127.0.0.1:55558");
@@ -67,7 +72,7 @@ namespace QTShell
 
                 if (buf1 != null && buf1.Length > 0)
                 {
-                    string generalmsg = Encoding.UTF8.GetString(data);
+                    string generalmsg = Encoding.UTF8.GetString(buf1);
                     string[] v=generalmsg.Split('|');
                     if (v[0] == "s")
                     {
@@ -105,7 +110,8 @@ namespace QTShell
                     }
                     else if (v[0] == "m")
                     {
-                        _eventaggregator.GetEvent<GeneralMessageEvent>().Publish(generalmsg);
+                        var generalMessage = new GeneralMessage(v[v.Length-1].Trim(), v[v.Length-2]);
+                        _eventaggregator.GetEvent<GeneralMessageEvent>().Publish(generalMessage);
                     }
                    
                 }

@@ -154,7 +154,7 @@ namespace Modules.StrategyManager.ViewModel
             try
             {
                 o.OrderStatus = OrderStatus.PendingSubmit;
-                _eventAggregator.GetEvent<SendOrderEvent>().Publish(o);
+                //_eventAggregator.GetEvent<SendOrderEvent>().Publish(o);
             }
             catch (Exception ex)
             {

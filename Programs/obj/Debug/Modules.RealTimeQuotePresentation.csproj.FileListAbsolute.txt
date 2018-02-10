@@ -53,4 +53,3 @@ D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\Modules.RealTimeQuotePre
 D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\Modules.RealTimeQuotePresentation.csproj.CoreCompileInputs.cache
 D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\Modules.RealTimeQuotePresentation.dll
 D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\Modules.RealTimeQuotePresentation.pdb
-D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\GeneratedInternalTypeHelper.g.cs

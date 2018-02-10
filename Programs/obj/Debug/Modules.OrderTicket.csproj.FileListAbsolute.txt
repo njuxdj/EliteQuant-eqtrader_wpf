@@ -59,4 +59,3 @@ D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\Modules.OrderTicket.cspr
 D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\Modules.OrderTicket.csproj.CoreCompileInputs.cache
 D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\Modules.OrderTicket.dll
 D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\Modules.OrderTicket.pdb
-D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\GeneratedInternalTypeHelper.g.cs

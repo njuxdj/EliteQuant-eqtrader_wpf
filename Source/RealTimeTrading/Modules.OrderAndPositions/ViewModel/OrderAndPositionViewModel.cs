@@ -39,6 +39,7 @@ namespace Modules.OrderAndPositions.ViewModel
         private OrderTable _ordertable = new OrderTable();
         private PositionTable _positiontable = new PositionTable();
         private FillTable _filltable = new FillTable();
+        System.Data.DataTable _logTable = new System.Data.DataTable("LogTable");
         //private ResultTable _resulttable = new ResultTable();
         System.Data.DataTable _resultstable = new System.Data.DataTable("ResultsTable");
 
@@ -67,9 +68,24 @@ namespace Modules.OrderAndPositions.ViewModel
             _eventaggregator.GetEvent<OrderStatusEvent>().Subscribe(ClientGotOrderCancelConfirmation);
             _eventaggregator.GetEvent<OrderFillEvent>().Subscribe(ClientGotOrderFilled);
             _eventaggregator.GetEvent<GenerateReportEvent>().Subscribe(GeneratePerformanceReport);
+            _eventaggregator.GetEvent<GeneralMessageEvent>().Subscribe(ClientGotGeneralMessage);
 
             _resultstable.Columns.Add("Statistics");
             _resultstable.Columns.Add("Result");
+
+            _logTable.Columns.Add("Time");
+            _logTable.Columns.Add("Content");
+        }
+
+        private void ClientGotGeneralMessage(GeneralMessage obj)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            {
+                var row = LogTable.NewRow();
+                row[0] = obj.Time;
+                row[1] = obj.Content;
+                LogTable.Rows.Add(row);
+            });
         }
 
         private void ClientGotInitialPosition(Position obj)
@@ -254,5 +270,9 @@ namespace Modules.OrderAndPositions.ViewModel
         }
 
         public System.Data.DataTable ResultTable { get { return _resultstable; } }
+
+        public System.Data.DataTable LogTable { get { return _logTable; } }
+
     }
+
 }

@@ -7,7 +7,7 @@
     <Grid>
         <TabControl x:Name="OrderAndPositionTabControl" SelectedIndex="{Binding Path=TabControlSelectedIndex, Mode=TwoWay}">
             <TabItem Header="Log" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="67">
-                <DataGrid Name="dgLog"  ItemsSource="{Binding Path=ResultTable}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False">
+                <DataGrid Name="dgLog"  ItemsSource="{Binding Path=LogTable}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False">
                     
                 </DataGrid>
             </TabItem>

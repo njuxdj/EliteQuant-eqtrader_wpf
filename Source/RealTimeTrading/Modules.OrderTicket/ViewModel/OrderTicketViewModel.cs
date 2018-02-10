@@ -233,9 +233,44 @@ namespace Modules.OrderTicket.ViewModel
             switch (_selectedordertype)
             {
                 case 0:
-                    _workingorder = new MarketOrder(_fullsymbol, _selectedbuysell == 0 ? _size : -_size, _globalIdService.GetNextOrderId());
-                    //_workingorder.StopPrice = 0;
-                    //_workingorder.LimitPrice = 0;
+                    StringBuilder order=new StringBuilder(200);
+                  
+                    if (SelectedOrderType == 0)
+                    {
+                        order.Append("o|MKT|");
+                        order.Append(_fullsymbol);
+                        order.Append("|");
+                        if (SelectedDirection == 0)
+                        {
+                            order.Append(Size);
+                        }
+                        else
+                        {
+                            order.Append("-");
+                            order.Append(Size);
+                        }
+                    }
+                    else if (SelectedOrderType == 1)
+                    {
+                        order.Append("o|LMT|");
+                        order.Append(_fullsymbol);
+                        order.Append("|");
+                        if (SelectedDirection == 0)
+                        {
+                            order.Append(Size);
+                        }
+                        else
+                        {
+                            order.Append("-");
+                            order.Append(Size);
+                        }
+                        order.Append("|");
+                        order.Append(Price);
+                        order.Append("|");
+                        order.Append(SelectedOrderFlag);
+                    }
+                    _eventaggregator.GetEvent<SendOrderEvent>().Publish(order.ToString());
+                    //_workingorder = new MarketOrder(_fullsymbol, _selectedbuysell == 0 ? _size : -_size, _globalIdService.GetNextOrderId());
                     break;
                 case 1:
                     _workingorder = new LimitOrder(_fullsymbol, _selectedbuysell == 0 ? _size : -_size, _price, _globalIdService.GetNextOrderId());
@@ -258,8 +293,8 @@ namespace Modules.OrderTicket.ViewModel
                     break;
             }
 
-            _workingorder.OrderStatus = OrderStatus.PendingSubmit;
-            _eventaggregator.GetEvent<SendOrderEvent>().Publish(_workingorder);
+            //_workingorder.OrderStatus = OrderStatus.PendingSubmit;
+            //_eventaggregator.GetEvent<SendOrderEvent>().Publish(_workingorder);
         }
         //private bool CanPlaceOrder() { return (Size != 0); }
 

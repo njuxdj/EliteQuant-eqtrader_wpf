@@ -199,9 +199,13 @@ namespace TradingBase
                 configmanager.BrokerName= configmanager.ConfigServer[configmanager.Account]["broker"].ToString();
                 configmanager.BaseCurrency = configmanager.ConfigServer[configmanager.Account]["base_currency"].ToString();
                 configmanager.Securities = new List<string>();
-                foreach ( var node in configmanager.ConfigServer[configmanager.Account]["base_currency"].AllNodes)
+                int i = 0; //allnode, starting on the currentnode.
+                foreach ( var node in configmanager.ConfigServer[configmanager.Account]["tickers"].AllNodes)
                 {
+                    if (i++ == 0)
+                        continue;
                     configmanager.Securities.Add(node.ToString());
+                    
                 }
             }
 

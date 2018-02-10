@@ -38,6 +38,8 @@ namespace QTShell
 {
     public class Bootstrapper : UnityBootstrapper, IDisposable
     {
+        private ClientMessageGateway _clientMessageGateway;
+
         protected override DependencyObject CreateShell()
         {
             return Container.Resolve<Shell>();
@@ -46,6 +48,13 @@ namespace QTShell
         protected override void InitializeShell()
         {
             base.InitializeShell();
+
+            var eventAggregator = Container.Resolve<IEventAggregator>();
+            _clientMessageGateway = new ClientMessageGateway(eventAggregator,this.Logger);
+            Task msgRouteTask = Task.Factory.StartNew(() =>
+            {
+                _clientMessageGateway.RunMessageProcessLoop();
+            });
 
             App.Current.MainWindow = (Window)this.Shell;
             App.Current.MainWindow.Show();
@@ -82,6 +91,9 @@ namespace QTShell
 
             // Ensure we properly dispose of objects in the container at application exit
             Application.Current.Exit += (sender, e) => this.Dispose();
+
+           
+                
         }
 
         protected override Microsoft.Practices.Prism.Logging.ILoggerFacade CreateLogger()

@@ -245,13 +245,13 @@ namespace TradingBase
                 o.Currency.ToString(), 
                 o.TIF.ToString()                
             };
-            return string.Join(",",s);
+            return string.Join("|",s);
         }
 
         public new static Order Deserialize(string message)
         {
             Order o = new Order();
-            string[] rec = message.Split(','); // get the record
+            string[] rec = message.Split('|'); // get the record
 
             o.OrderDate = Convert.ToInt32(rec[0]);
             o.OrderTime = Convert.ToInt32(rec[1]);

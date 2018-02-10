@@ -32,6 +32,7 @@ using System.Collections.Concurrent;
 
 using System.Reactive.Linq;
 using System.Reactive;
+using System.Diagnostics;
 
 namespace Modules.Framework.Services
 {
@@ -69,9 +70,10 @@ namespace Modules.Framework.Services
             // .BufferWithTime(TimeSpan.FromMilliseconds(_od))
             // .Where(x => x.Count > 0)
             // .Subscribe(DataReceived, LogError);
-            tickObservable.Where(e => e.Value.TickType==TickType.TRADE).GroupBy(e => e.Value.FullSymbol)
+            tickObservable.GroupBy(e => e.Value.FullSymbol)
                 .Subscribe(group => group.Sample(TimeSpan.FromSeconds(sampletime_))
                     .Subscribe(QuoteDispatcher));
+
         }
 
         public void Start()
@@ -110,10 +112,17 @@ namespace Modules.Framework.Services
                 {
                     break;
                 }
-
-                //****************** Trigger event, which calls quote dispatcher **************//
-                Tick k = _tickqueue.Take();
-                TickReceived(new MyEventArgs<Tick>(k));         // fire event
+                try
+                {
+                    //****************** Trigger event, which calls quote dispatcher **************//
+                    Tick k = _tickqueue.Take();
+                    TickReceived(new MyEventArgs<Tick>(k));         // fire event
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.ToString());
+                    _logger.Log(ex.Message, Category.Exception, Priority.High);
+                }
             }
         }
 
