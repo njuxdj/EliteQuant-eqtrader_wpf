@@ -1,0 +1,5 @@
+D:\Workspace\EliteQuant-eqtrader_wpf\Programs\Debug\TradingBase.dll
+D:\Workspace\EliteQuant-eqtrader_wpf\Programs\Debug\TradingBase.pdb
+D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\TradingBase.csproj.CoreCompileInputs.cache
+D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\TradingBase.dll
+D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\TradingBase.pdb

@@ -24,6 +24,16 @@ using System.Threading.Tasks;
 
 namespace TradingBase
 {
+
+
+
+    public enum OrderFlag
+    {
+        OPEN = 0,
+        CLOSE = 1,
+        CLOSE_TODAY = 2,
+        CLOSE_YESTERDAY = 3
+    }
     /// <summary>
     /// Tick can be a quote (bid/ask) or a trade
     /// Size < 0 means index
@@ -32,28 +42,30 @@ namespace TradingBase
     public class Tick
     {
         public string FullSymbol { get; set; }
-        public int Date { get; set; }
         public int Time { get; set; }
-        public decimal BidPrice { get; set; }
-        public int BidSize { get; set; }
-        // public string BidExchange { get; set; }
-        public decimal AskPrice { get; set; }
-        public int AskSize { get; set; }
-        // public string AskExchange { get; set; }
-        public decimal TradePrice { get; set; }
-        public int TradeSize { get; set; }
-        // public string TradeExchange { get; set; }
+        public TickType TickType{get;set;}
+        public decimal Price { get; set; }
+        public int Size { get; set; }
+        
         public int Depth { get; set; }
-
-        public bool IsIndex { get { return TradeSize < 0; } }
-        public bool HasBid { get { return (BidPrice != 0) && (BidSize != 0); } }
-        public bool HasAsk { get { return (AskPrice != 0) && (AskSize != 0); } }
-        public bool IsFullQuote { get { return HasBid && HasAsk; } }
-        public bool IsQuote { get { return !IsTrade && (HasBid || HasAsk); } }
-        public bool IsTrade { get { return (TradePrice != 0) && (TradeSize > 0); } }
-        public bool HasTick { get { return (IsTrade || HasBid || HasAsk); } }
-        public bool IsValid { get { return (FullSymbol != "" && (IsIndex || HasTick)); } }
-        public long Datetime { get { return (long)Date * 1000000 + (long)Time; } }
+        public decimal BidPriceL1 { get; set; }
+        public int BidSizeL1 { get; set; }
+        public decimal AskPriceL1 { get; set; }
+        public int AskSizeL1 { get; set; }
+        public decimal OpenInterest { get; set; }
+        public decimal Open { get; set; }
+        public decimal High { get; set; }
+        public decimal Low { get; set; }
+        public decimal PreClose { get; set; }
+        public decimal UpperLimitPrice { get; set; }
+        public decimal LowerLimitPrice { get; set; }
+        public DateTime Date
+        {
+            get
+            {
+                return new DateTime(Time).Date;
+            }
+        }
 
         public Tick():this("")
         {
@@ -62,26 +74,22 @@ namespace TradingBase
         public Tick(string fullsymbol)
         {
             FullSymbol = fullsymbol;
-            Date = 0;
             Time = 0;
-            BidPrice = 0m;
-            BidSize = 0;
-            AskPrice = 0m;
-            AskSize = 0;
-            TradePrice = 0m;
-            TradeSize = 0;
+            Time = 0;
+            Size = 0;
+            Price = 0;
             Depth = 0;
         }
 
-        public static Tick NewTrade(string fullsym, int date, int time, decimal trade, int size)
+        public static Tick NewTrade(string fullsym, int time, decimal trade, int size)
         {
             Tick t = new Tick(fullsym);
-            t.Date = date;
+            
             t.Time = time;
-            t.TradePrice = trade;
-            t.TradeSize = size;
-            t.BidPrice = 0m;
-            t.AskPrice = 0m;
+            t.Price = trade;
+            t.Size = size;
+            t.BidPriceL1 = 0m;
+            t.AskPriceL1 = 0m;
             return t;
         }
 
@@ -92,57 +100,72 @@ namespace TradingBase
 
         public static string Serialize(Tick t)
         {
-            const char d = ',';
+            const char d = '|';
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             sb.Append(t.FullSymbol);
             sb.Append(d);
-            sb.Append(t.Date);
-            sb.Append(d);
             sb.Append(t.Time);
             sb.Append(d);
-            sb.Append(t.TradePrice.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            sb.Append(t.TickType);
             sb.Append(d);
-            sb.Append(t.TradeSize);
+            sb.Append(t.Price);
             sb.Append(d);
-            sb.Append(t.BidPrice.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            sb.Append(d);
-            sb.Append(t.BidSize);
-            sb.Append(d);
-            sb.Append(t.AskPrice.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            sb.Append(d);
-            sb.Append(t.AskSize);
+            sb.Append(t.Size);
             sb.Append(d);
             sb.Append(t.Depth);
-
+            sb.Append(d);
+            sb.Append(t.BidPriceL1);
+            sb.Append(d);
+            sb.Append(t.BidSizeL1);
+            sb.Append(d);
+            sb.Append(t.AskPriceL1);
+            sb.Append(d);
+            sb.Append(t.AskSizeL1);
+            sb.Append(d);
+            sb.Append(t.OpenInterest);
+            sb.Append(d);
+            sb.Append(t.Open);
+            sb.Append(d);
+            sb.Append(t.High);
+            sb.Append(d);
+            sb.Append(t.Low);
+            sb.Append(d);
+            sb.Append(t.PreClose);
+            sb.Append(d);
+            sb.Append(t.UpperLimitPrice);
+            sb.Append(d);
+            sb.Append(t.LowerLimitPrice);
+            
             return sb.ToString();
         }
 
         public static Tick Deserialize(string msg)
         {
-            string[] r = msg.Split(',');
+            string[] r = msg.Split('|');
             Tick t = new Tick();
             decimal d = 0;
             int i = 0;
-            
             t.FullSymbol = r[0];
-            if (int.TryParse(r[1], out i))
-                t.Date = i;
-            if (int.TryParse(r[2], out i))
-                t.Time = i;
-            if (decimal.TryParse(r[3], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out d))
-                t.TradePrice = d;
-            if (int.TryParse(r[4], out i))
-                t.TradeSize = i;
-            if (decimal.TryParse(r[5], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out d))
-                t.BidPrice = d;
-            if (int.TryParse(r[6], out i))
-                t.BidSize = i;
-            if (decimal.TryParse(r[7], System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out d))
-                t.AskPrice = d;            
-            if (int.TryParse(r[8], out i))
-                t.AskSize = i;         
-            if (int.TryParse(r[9], out i))
-                t.Depth = i;
+            t.Time =Convert.ToInt32( r[1]);
+            t.TickType = (TickType)Enum.Parse(typeof(TickType),r[2]);
+            t.Price= Convert.ToDecimal(r[3]);
+            t.Size = Convert.ToInt32(r[4]);
+            t.Depth = Convert.ToInt32(r[5]);
+           
+               if (t.TickType == TickType.FULL)
+               {
+                   t.BidPriceL1 = Convert.ToDecimal(r[6]);
+                t.BidSizeL1 = Convert.ToInt32(r[7]);
+                t.AskPriceL1 = Convert.ToDecimal(r[8]);
+                t.AskSizeL1 = Convert.ToInt32(r[9]);
+                t.OpenInterest= Convert.ToDecimal(r[10]);
+                t.Open = Convert.ToDecimal(r[11]);
+                t.High= Convert.ToDecimal(r[12]);
+                t.Low = Convert.ToDecimal(r[13]);
+                t.PreClose= Convert.ToDecimal(r[14]);
+                t.UpperLimitPrice = Convert.ToDecimal(r[15]);
+                t.LowerLimitPrice = Convert.ToDecimal(r[16]);
+               }
 
             return t;
         }

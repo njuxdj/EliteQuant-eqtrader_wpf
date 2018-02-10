@@ -59,11 +59,11 @@ namespace Modules.StrategyManager.ViewModel
             _quotefeedservice = ServiceLocator.Current.GetInstance<IStrategyQuoteFeedService>() as StrategyQuoteFeedService;
             _quotefeedservice.QuoteFeeViewModel = this;
 
-            _eventAggregator.GetEvent<InitialPositionEvent>().Subscribe(ClientGotInitialPosition);
-            _eventAggregator.GetEvent<HistBarEvent>().Subscribe(ClientGotHistBar);
+            _eventAggregator.GetEvent<PositionEvent>().Subscribe(ClientGotInitialPosition);
+            
             //_eventaggregator.GetEvent<SendOrderEvent>().Subscribe(ClientGotOrder);
-            _eventAggregator.GetEvent<OrderConfirmationEvent>().Subscribe(ClientGotOrder);
-            _eventAggregator.GetEvent<OrderCancelConfirmationEvent>().Subscribe(ClientGotOrderCancelConfirmation);
+            _eventAggregator.GetEvent<OrderStatusEvent>().Subscribe(ClientGotOrder);
+            _eventAggregator.GetEvent<OrderStatusEvent>().Subscribe(ClientGotOrderCancelConfirmation);
             _eventAggregator.GetEvent<OrderFillEvent>().Subscribe(ClientGotOrderFilled);
 
             LoadStrategies();
@@ -107,7 +107,6 @@ namespace Modules.StrategyManager.ViewModel
             tmp.SendOrderEvent += _strategy_SendOrder;
             tmp.SendCancelEvent += _strategy_CancelOrderSource;
             tmp.SendBasketEvent += _strategy_SendBasket;
-            tmp.SendReqHistBarEvent += _strategy_SendReqHistBar;
             tmp.SendChartLabelEvent += _strategy_SendChartLabel;
             tmp.SendIndicatorsEvent += _strategy_SendIndicators;
         }
@@ -119,7 +118,7 @@ namespace Modules.StrategyManager.ViewModel
             tmp.SendOrderEvent -= _strategy_SendOrder;
             tmp.SendCancelEvent -= _strategy_CancelOrderSource;
             tmp.SendBasketEvent -= _strategy_SendBasket;
-            tmp.SendReqHistBarEvent -= _strategy_SendReqHistBar;
+          
             tmp.SendChartLabelEvent -= _strategy_SendChartLabel;
             tmp.SendIndicatorsEvent -= _strategy_SendIndicators;
         }
@@ -168,10 +167,6 @@ namespace Modules.StrategyManager.ViewModel
             SendDebug("Basket subscription not implemented yet. StrategyBase should use the basket from basket.xml");
         }
 
-        void _strategy_SendReqHistBar(BarRequest br)
-        {
-            _eventAggregator.GetEvent<SendHistDataRequestEvent>().Publish(br);
-        }
 
         void _strategy_SendIndicators(int idx, string param)
         {
@@ -216,17 +211,7 @@ namespace Modules.StrategyManager.ViewModel
                 si.S.GotPosition(obj);
             }
         }
-
-        /// <summary>
-        /// Previous day daily bar
-        /// </summary>
-        private void ClientGotHistBar(Bar br)
-        {
-            foreach (StrategyItem si in _strategyitemlist)
-            {
-                si.S.GotHistoricalBar(br);
-            }
-        }
+        
 
         private void ClientGotOrder(Order o)
         {
@@ -236,8 +221,9 @@ namespace Modules.StrategyManager.ViewModel
             }
         }
 
-        private void ClientGotOrderCancelConfirmation(long oid)
+        private void ClientGotOrderCancelConfirmation(Order order)
         {
+            long oid = order.Id;
             foreach (StrategyItem si in _strategyitemlist)
             {
                 si.S.GotOrderCancel(oid);

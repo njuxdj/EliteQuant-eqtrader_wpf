@@ -1,0 +1,5 @@
+D:\Workspace\EliteQuant-eqtrader_wpf\Source\IBConnection\csharpclient\bin\Debug\CSharpAPI.dll
+D:\Workspace\EliteQuant-eqtrader_wpf\Source\IBConnection\csharpclient\bin\Debug\CSharpAPI.pdb
+D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\CSharpAPI.csproj.CoreCompileInputs.cache
+D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\CSharpAPI.dll
+D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\CSharpAPI.pdb

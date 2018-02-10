@@ -77,12 +77,7 @@ namespace TradingBase
         public virtual void GotPosition(Position p)
         {
         }
-        /// <summary>
-        /// called when historical bar arrives.   
-        /// </summary>
-        public virtual void GotHistoricalBar(Bar b)
-        {
-        }
+        
         #endregion
 
         #region strategy output
@@ -96,7 +91,7 @@ namespace TradingBase
         public event Action<Basket, int> SendBasketEvent;
         // int = strategy id
         public event Action<int> SendMarketDepthEvent;
-        public event Action<BarRequest> SendReqHistBarEvent;
+      
         // decimal price, int time, string label, and color
         public event Action<decimal, int, string, System.Drawing.Color> SendChartLabelEvent;
         // StrategyBase id and indicator string
@@ -146,16 +141,7 @@ namespace TradingBase
                 SendDebug("SendMarketDepth not supported in this application.");
         }
 
-        /// <summary>
-        /// send historical bar request
-        /// </summary>
-        public virtual void SendHistoricalBarRequest(BarRequest br)
-        {
-            if (SendReqHistBarEvent != null)
-                SendReqHistBarEvent(br);
-            else
-                SendDebug("SendreqHistBar is not supported in this application");
-        }
+       
 
         /// <summary>
         /// draws a label with default color (violet)

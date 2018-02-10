@@ -41,7 +41,7 @@ namespace Modules.RealTimeQuotePresentation.ViewModels
 
         public QuoteGridViewModel()
         {
-            
+            //3lk7369
             this._gridList = new QuoteGridList();
             _quoteupdateservice = ServiceLocator.Current.GetInstance<IQuoteUpdateService>() as QuoteUpdateService;
             _eventaggregator = ServiceLocator.Current.GetInstance<EventAggregator>();
@@ -76,30 +76,30 @@ namespace Modules.RealTimeQuotePresentation.ViewModels
 
             if (item != null)
             {
-                if (k.HasBid)
+                if (k.TickType == TickType.FULL || k.TickType == TickType.BID)
                 {
-                    item.BidPair = new QuoteGridLine.QuotePair(item.BidPair._newvalue, k.BidPrice);    
-                    item.BidSize = k.BidSize;
+                    item.BidPair = new QuoteGridLine.QuotePair(item.BidPair._newvalue, k.BidPriceL1);    
+                    item.BidSize = k.BidSizeL1;
                 }
-                if (k.HasAsk)
+                if (k.TickType == TickType.FULL || k.TickType == TickType.ASK)
                 {
-                    item.AskPair = new QuoteGridLine.QuotePair(item.AskPair._newvalue, k.AskPrice);
-                    item.AskSize = k.AskSize;
+                    item.AskPair = new QuoteGridLine.QuotePair(item.AskPair._newvalue, k.AskPriceL1);
+                    item.AskSize = k.AskSizeL1;
                 }
 
-                if (k.IsTrade)
+                if (k.TickType == TickType.TRADE)
                 {
                     // decimal old_trade = (decimal)item.TradePair._newvalue;
-                    item.TradePair = new QuoteGridLine.QuotePair(item.TradePair._newvalue, k.TradePrice);
-                    item.Size = k.TradeSize;
+                    item.TradePair = new QuoteGridLine.QuotePair(item.TradePair._newvalue, k.Price);
+                    item.Size = k.Size;
                     
                     //item.TradeColor = k.TradePrice > old_trade ? System.Windows.Media.Colors.Green
                     //   : (k.TradePrice == old_trade ? System.Windows.Media.Colors.White : System.Windows.Media.Colors.Red);
 
                     if (item.PreClose != 0m)
                     {
-                        item.Change = k.TradePrice - item.PreClose;
-                        item.ChangePercentage = String.Format("{0:P3}.", k.TradePrice / item.PreClose - 1);
+                        item.Change = k.Price - item.PreClose;
+                        item.ChangePercentage = String.Format("{0:P3}.", k.Price / item.PreClose - 1);
                     }
                 }
             }

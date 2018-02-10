@@ -1,0 +1,5 @@
+D:\Workspace\EliteQuant-eqtrader_wpf\Source\TradingBase\TechnicalAnalysisEngine\bin\Debug\TechnicalAnalysisEngine.dll
+D:\Workspace\EliteQuant-eqtrader_wpf\Source\TradingBase\TechnicalAnalysisEngine\bin\Debug\TechnicalAnalysisEngine.pdb
+D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\TechnicalAnalysisEngine.csproj.CoreCompileInputs.cache
+D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\TechnicalAnalysisEngine.dll
+D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\TechnicalAnalysisEngine.pdb

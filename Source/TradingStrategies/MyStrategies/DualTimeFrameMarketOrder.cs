@@ -102,7 +102,7 @@ namespace MyStrategies
 
         #region member variables
         private PositionTracker _positiontracker;
-        private BarListTracker _barlisttracker;
+      
         private OrderTracker _ordertracker;
 
         bool[] _issymbolactive;
@@ -172,7 +172,7 @@ namespace MyStrategies
                     {
                         // get the last bar, and record the entry/exit point
                         int count = bl.IntervalCount(interval);
-                        Bar lastbar = bl[count - 2, interval];
+                   
                         _entrylevel[idx] = lastbar.High;
                         _exitlevel[idx] = lastbar.High - _traingamount;
                     }
@@ -285,8 +285,7 @@ namespace MyStrategies
         public override void Reset(bool popup = true)
         {
             _positiontracker = new PositionTracker(_symbols.Count);
-            _barlisttracker = new BarListTracker(_symbols.ToArray(), new int[] { _higherbarinterval, _lowerbarinterval });
-            _barlisttracker.GotNewBar += _barlisttracker_GotNewBar;
+          
             _ordertracker = new OrderTracker(10000);
 
             // in the none zone

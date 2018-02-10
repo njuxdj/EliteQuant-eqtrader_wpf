@@ -51,7 +51,7 @@ namespace Modules.Framework
         private readonly ILoggerFacade _logger;
         private readonly IEventAggregator _eventAggregator;
 
-        private BrokerService _brokerservice;
+      
         private TickArchiver _tickarchiveservice;
         private QuoteDispatcherService _quotedispatcherservice;
         private ConfigManager _configmanagerservice;
@@ -87,8 +87,7 @@ namespace Modules.Framework
 
             _eventAggregator.GetEvent<ApplicationExitEvent>().Subscribe((o) => Dispose(), true);
             _eventAggregator.GetEvent<ConnectDisconnectEvent>().Subscribe(Start);
-            _eventAggregator.GetEvent<HistBarEvent>().Subscribe(ProcessPreviousClose);
-
+          
             RegisterViewsAndServices();
 
             _logger.Log("Module ModuleFramework Loaded", Category.Info, Priority.None);
@@ -102,9 +101,7 @@ namespace Modules.Framework
             _tickqueue = new BlockingCollection<Tick>(_configmanagerservice.TickQueueCapacity);
             //_basket = Basket.DeserializeFromXML(Util.GetRootPath() + _configmanagerservice.SettingPath + "basket.xml");
             _basket = new Basket(_configmanagerservice.Securities);
-            // 1. BrokerService, no need to register
-            _brokerservice = new BrokerService(_configmanagerservice, _eventAggregator, _logger, _globalidservice, _tickqueue, _basket);
-
+            
             // 2. Tick arichive service, no need to register
             _tickarchiveservice = new TickArchiver(Util.GetRootPath() + _configmanagerservice.TickPath + _configmanagerservice.DefaultBroker);
             
@@ -126,33 +123,12 @@ namespace Modules.Framework
                     closeprices.Add(0.0m);
                 }
                 _quoteupdateservice.InitTickerAndPreClose(_basket.Securities.ToArray(), closeprices.ToArray());
-
-                // 1. brokerservice and initialize globalidservice
-                _brokerservice.Start();
+                
                 _globalidservice.SetInitialStrategyId(0);
 
                 // 3. QuoteDispatcherService
                 _quotedispatcherservice.Start();
-
-                // 4. Request yesterday's close in a separate thread, to avoid IB hist request limit
-                if (!_hasconnected)
-                {
-                    _hasconnected = true;
-                    Task.Factory.StartNew(() =>
-                    {
-                        string broker = _configmanagerservice.DefaultBroker;
-                        for (int i = 0; i < _basket.Count; i++)
-                        {
-                            if (broker == "IB")
-                                Thread.Sleep(10000);     // wait ten sec
-                            else
-                                Thread.Sleep(1000);      // wait one sec
-
-                            BarRequest br = new BarRequest(_basket[i], 86400, Util.ToIntDate(_preday), 0, Util.ToIntDate(_today), 0, broker);
-                            _brokerservice.ReqHistoricalData(br);
-                        }
-                    });
-                }
+                
             }
             //  or connected and ask for disconnection
             else if ((_isconnected) && (!toconnect))
@@ -165,12 +141,12 @@ namespace Modules.Framework
                 _logger.Log("connection/disconnection order messed up", Category.Info, Priority.High);
             }
         }
-
+        /*
         private void ProcessPreviousClose(Bar b)
         {
             _quoteupdateservice.InitTickerAndPreClose(new string[] { b.FullSymbol }, new decimal[] { b.Close });
         }
-
+        */
         public void Dispose()
         {
             Stop();
@@ -179,7 +155,6 @@ namespace Modules.Framework
 
         private void Stop()
         {
-            _brokerservice.Stop();
             _quotedispatcherservice.Stop();
         }
 

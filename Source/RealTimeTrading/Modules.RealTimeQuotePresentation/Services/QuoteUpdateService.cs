@@ -35,7 +35,7 @@ namespace Modules.RealTimeQuotePresentation.Services
 
         public void UpdateViews(Tick k)
         {
-            if ((GridViewModel != null) && k.IsValid)
+            if ((GridViewModel != null) )
             {
                 // _uidispatcher = System.Windows.Threading.Dispatcher.CurrentDispatcher;
 

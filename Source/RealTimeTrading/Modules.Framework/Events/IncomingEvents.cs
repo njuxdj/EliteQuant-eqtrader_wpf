@@ -24,6 +24,7 @@ using TradingBase;
 
 namespace Modules.Framework.Events
 {
+    /*
     public class OrderConfirmationEvent : PubSubEvent<Order>
     {
     }
@@ -31,16 +32,41 @@ namespace Modules.Framework.Events
     public class OrderCancelConfirmationEvent : PubSubEvent<long>
     {
     }
-
+    
     public class OrderFillEvent : PubSubEvent<Trade>
     {
     }
-
+   
     public class InitialPositionEvent : PubSubEvent<Position>
     {
     }
 
     public class HistBarEvent : PubSubEvent<Bar>
+    {
+    }
+     */
+    public class MarketDataEvent : PubSubEvent<Tick>
+    {
+    }
+    public class OrderStatusEvent : PubSubEvent<Order>
+    {
+    }
+    public class OrderFillEvent : PubSubEvent<Order>
+    {
+    }
+    public class PositionEvent : PubSubEvent<Position>
+    {
+    }
+    public class HistoricalEvent : PubSubEvent<string>
+    {
+    }
+    public class AccountEvent : PubSubEvent<string>
+    {
+    }
+    public class ContractEvent : PubSubEvent<string>
+    {
+    }
+    public class GeneralMessageEvent : PubSubEvent<string>
     {
     }
 

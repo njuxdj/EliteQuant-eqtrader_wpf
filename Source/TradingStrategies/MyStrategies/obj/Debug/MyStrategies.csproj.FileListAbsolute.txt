@@ -14,3 +14,7 @@ D:\Workspace\QuantTrading-master\Source\TradingStrategies\MyStrategies\obj\Debug
 D:\Workspace\QuantTrading-master\Source\TradingStrategies\MyStrategies\obj\Debug\MyStrategies.pdb
 D:\Workspace\QuantTrading-master\Source\TradingStrategies\MyStrategies\bin\Debug\YamlDotNet.dll
 D:\Workspace\QuantTrading-master\Source\TradingStrategies\MyStrategies\bin\Debug\YamlDotNet.xml
+D:\Workspace\EliteQuant-eqtrader_wpf\Source\TradingStrategies\MyStrategies\obj\Debug\MyStrategies.csprojResolveAssemblyReference.cache
+D:\Workspace\EliteQuant-eqtrader_wpf\Source\TradingStrategies\MyStrategies\obj\Debug\MyStrategies.csproj.CoreCompileInputs.cache
+D:\Workspace\EliteQuant-eqtrader_wpf\Source\TradingStrategies\MyStrategies\obj\Debug\MyStrategies.dll
+D:\Workspace\EliteQuant-eqtrader_wpf\Source\TradingStrategies\MyStrategies\obj\Debug\MyStrategies.pdb

@@ -148,17 +148,20 @@ namespace TradingBase
             decimal p;
             int s;
 
-            if (k.IsTrade)
+            if (k.TickType == TickType.TRADE)
             {
-                p = k.TradePrice;
-                s = k.TradeSize;
+                p = k.Price;
+                s = k.Size;
             }
-            else if (bidask)       // fill on bid/ask 
+            else if (k.TickType == TickType.ASK)     // fill on bid/ask 
             {
-                bool ok = OrderSide ? k.HasAsk : k.HasBid;
-                if (!ok) return false;
-                p = OrderSide ? k.AskPrice : k.BidPrice;
-                s = OrderSide ? k.AskSize : k.BidSize;
+                p = k.AskPriceL1 ;
+                s = k.AskSizeL1;
+            }
+            else if (k.TickType == TickType.BID)
+            {
+                p =  k.BidPriceL1;
+                s =  k.BidSizeL1;
             }
             else
             {
@@ -171,68 +174,15 @@ namespace TradingBase
                 || (IsStop && !OrderSide && (p <= StopPrice)) // sell stop
                 || IsMarket)
             {
-                this.TradePrice = k.TradePrice;
+                this.TradePrice = k.Price;
                 this.TradeSize = (s >= UnsignedSize ? UnsignedSize : s) * (OrderSide ? 1 : -1);
-                this.TradeTime = k.Time;
-                this.TradeDate = k.Date;
+                this.TradeTime = (int)k.Time;
+                
                 return true;
             }
             return false;
         }
-
-        /// <summary>
-        /// for backtest/simulation: fill assuming high liquidity - fill stops and limits at their stop price
-        /// rather than at bid, ask, or trade. primarily for use when only daily data is available.
-        /// </summary>
-        public bool FillHighLiquidityEOD(Tick k, bool bidask, bool fillOPG = false)
-        {
-            if ((!IsStop && !IsLimit))
-                return Fill(k, bidask, fillOPG);
-
-            if (k.FullSymbol != FullSymbol)
-                return false;
-            if (!fillOPG && (this._tif == TimeInForce.OPG))
-                return false;
-
-            // determine size and activation price using bid-ask or trade method
-            int s;
-            decimal p;
-            if (bidask)
-            {
-                bool ok = OrderSide ? k.HasAsk : k.HasBid;
-                if (!ok)
-                    return false;
-                s = OrderSide ? k.AskSize : k.BidSize;
-                p = OrderSide ? k.AskPrice : k.BidPrice;
-            }
-            else
-            {
-                if (!k.IsTrade)
-                    return false;
-                s = k.TradeSize;
-                p = k.TradePrice;
-            }
-
-            // record the fill
-            this.TradeSize = (s >= UnsignedSize ? UnsignedSize : s) * (OrderSide ? 1 : -1);
-            this.TradeTime = k.Time;
-            this.TradeDate = k.Date;
-
-            if ((IsLimit && OrderSide && (p <= LimitPrice)) // buy limit
-             || (IsLimit && !OrderSide && (p >= LimitPrice))) // sell limit
-            {
-                this.TradePrice = LimitPrice;
-                return true;
-            }
-            else if ((IsStop && OrderSide && (p >= StopPrice)) // buy stop
-                  || (IsStop && !OrderSide && (p <= StopPrice))) // sell stop
-            {
-                this.TradePrice = StopPrice;
-                return true;
-            }
-            return false;
-        }
-
+        
         /// <summary>
         /// Try to fill incoming order against this order.  If orders match.
         /// It doesn't adjust the pass-in order

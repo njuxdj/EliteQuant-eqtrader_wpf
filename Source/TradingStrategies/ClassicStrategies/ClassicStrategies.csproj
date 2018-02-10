@@ -60,12 +60,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlwaysEnter.cs" />
-    <Compile Include="EMASimple.cs" />
     <Compile Include="HelloWorld.cs" />
     <Compile Include="MACDSimple.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SMASimple.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\TradingBase\TechnicalAnalysisEngine\TechnicalAnalysisEngine.csproj">

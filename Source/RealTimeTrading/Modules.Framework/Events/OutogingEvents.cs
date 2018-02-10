@@ -22,9 +22,7 @@ using TradingBase;
 
 namespace Modules.Framework.Events
 {
-    public class SendHistDataRequestEvent : PubSubEvent<BarRequest>
-    {
-    }
+
 
     public class SendOrderEvent : PubSubEvent<Order>
     {

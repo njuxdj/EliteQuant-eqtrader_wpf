@@ -70,21 +70,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account.cs" />
-    <Compile Include="Backtest\BacktestEngine.cs" />
-    <Compile Include="Backtest\Broker.cs" />
-    <Compile Include="Backtest\HistSim.cs" />
-    <Compile Include="Backtest\MultiSim.cs" />
-    <Compile Include="Backtest\OptimizeEngine.cs" />
-    <Compile Include="Backtest\SingleSim.cs" />
-    <Compile Include="Bar\Bar.cs" />
-    <Compile Include="Bar\BarIntervalData.cs" />
-    <Compile Include="Bar\BarList.cs" />
-    <Compile Include="Bar\BarListTracker.cs" />
-    <Compile Include="Bar\BarRequest.cs" />
-    <Compile Include="Bar\BarTimeIntervalData.cs" />
-    <Compile Include="Brokers\GoogleClient.cs" />
-    <Compile Include="Brokers\IBClient.cs" />
-    <Compile Include="Brokers\IClient.cs" />
     <Compile Include="Enums\BarInterval.cs" />
     <Compile Include="Enums\CurrencyType.cs" />
     <Compile Include="Order\Order.cs" />
@@ -118,7 +103,6 @@
     <Compile Include="Order\Trade.cs" />
     <Compile Include="Util\Calc.cs" />
     <Compile Include="Util\ConfigManager.cs" />
-    <Compile Include="Util\ConnectionTracker.cs" />
     <Compile Include="Util\DefaultSettings.cs" />
     <Compile Include="Util\EnumDescConverter.cs" />
     <Compile Include="Util\IConfigManager.cs" />
@@ -128,12 +112,6 @@
     <Compile Include="Util\OffsetTracker.cs" />
     <Compile Include="Util\OversellProtector.cs" />
     <Compile Include="Util\Util.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\IBConnection\csharpclient\CSharpAPI.csproj">
-      <Project>{8ede0744-96c2-40b0-a8dc-37df79370203}</Project>
-      <Name>CSharpAPI</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

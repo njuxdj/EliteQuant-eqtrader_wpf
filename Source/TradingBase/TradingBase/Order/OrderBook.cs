@@ -90,7 +90,7 @@ namespace TradingBase
         public void GotTick(Tick k)
         {
             // ignore trades
-            if (k.IsTrade) return;
+            if (k.TickType==TickType.TRADE) return;
             // make sure depth is valid for this book
             if ((k.Depth < 0) || (k.Depth >= maxbook)) return;
             if (Sym == null)
@@ -100,19 +100,19 @@ namespace TradingBase
             // if depth is zero, must be a new book
             if (k.Depth == 0) Reset();
             // update buy book
-            if (k.HasBid)
+            if (k.TickType==TickType.FULL|| k.TickType == TickType.BID)
             {
-                bidprice[k.Depth] = k.BidPrice;
-                bidsize[k.Depth] = k.BidSize;
+                bidprice[k.Depth] = k.BidPriceL1;
+                bidsize[k.Depth] = k.BidSizeL1;
                 bidex[k.Depth] = "an exchange";
                 if (k.Depth > ActualDepth)
                     ActualDepth = k.Depth;
             }
             // update sell book
-            if (k.HasAsk)
+            if (k.TickType == TickType.FULL || k.TickType == TickType.ASK)
             {
-                askprice[k.Depth] = k.AskPrice;
-                asksize[k.Depth] = k.AskSize;
+                askprice[k.Depth] = k.AskPriceL1;
+                asksize[k.Depth] = k.AskSizeL1;
                 askex[k.Depth] = "an exchange";
                 if (k.Depth > ActualDepth)
                     ActualDepth = k.Depth;

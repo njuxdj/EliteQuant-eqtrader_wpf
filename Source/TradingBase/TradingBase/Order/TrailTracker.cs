@@ -126,12 +126,12 @@ namespace TradingBase
             if (_pt[k.FullSymbol].isFlat)
                 return;
             // // pass along as point
-            if (k.IsTrade && !UseBidAskExitPrices)
-                newPoint(k.FullSymbol, k.TradePrice);
-            if (UseBidAskExitPrices && _pt[k.FullSymbol].isLong && k.HasBid)
-                newPoint(k.FullSymbol, k.BidPrice);
-            else if (UseBidAskExitPrices && _pt[k.FullSymbol].isShort && k.HasAsk)
-                newPoint(k.FullSymbol, k.AskPrice);
+            if (k.TickType == TickType.TRADE && !UseBidAskExitPrices)
+                newPoint(k.FullSymbol, k.Price);
+            if (UseBidAskExitPrices && _pt[k.FullSymbol].isLong && k.TickType==TickType.BID)
+                newPoint(k.FullSymbol, k.BidPriceL1);
+            else if (UseBidAskExitPrices && _pt[k.FullSymbol].isShort && k.TickType == TickType.ASK)
+                newPoint(k.FullSymbol, k.AskPriceL1);
         }
 
 

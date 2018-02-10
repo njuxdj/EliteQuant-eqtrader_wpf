@@ -36,7 +36,7 @@ namespace TradingBase
         public string FolderPath { get { return _folderpath; } set { _folderpath = value; } }
 
         Dictionary<string, TickWriter> _filedict = new Dictionary<string, TickWriter>();
-        ConcurrentDictionary<string, int> _datedict = new ConcurrentDictionary<string, int>();
+        ConcurrentDictionary<string, DateTime> _datedict = new ConcurrentDictionary<string, DateTime>();
 
         public TickArchiver(string folderpath)
         {
@@ -65,7 +65,7 @@ namespace TradingBase
             if ((t.FullSymbol == null) || (t.FullSymbol == "")) return false;
             TickWriter tw;
             // prepare last date of tick
-            int lastdate = t.Date;
+            DateTime lastdate = t.Date;
             lastdate = _datedict.GetOrAdd(t.FullSymbol, t.Date);
 
             // see if we need a new day
@@ -96,11 +96,11 @@ namespace TradingBase
                         catch (IOException) { }
                     }
                     // ensure file is writable
-                    string file = Util.SafeFilename(t.FullSymbol, _folderpath, t.Date);
+                    string file = Util.SafeFilename(t.FullSymbol, _folderpath, t.Date.Day);
                     if (TickUtil.IsFileWritetable(file))
                     {
                         // open new stream
-                        tw = new TickWriter(_folderpath, t.FullSymbol, t.Date);
+                        tw = new TickWriter(_folderpath, t.FullSymbol, t.Date.Day);
                         // save tick
                         tw.newTick((Tick)t);
                         // save stream

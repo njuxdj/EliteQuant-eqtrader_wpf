@@ -32,7 +32,7 @@ namespace TradingBase
         void GotFill(Trade fill);
         void GotOrderCancel(long orderid);
         void GotPosition(Position pos);
-        void GotHistoricalBar(Bar b);
+        //void GotHistoricalBar(Bar b);
 
         // strategy decisions to send out
         event Action<string> SendDebugEvent;
@@ -44,7 +44,7 @@ namespace TradingBase
         event Action<Basket, int> SendBasketEvent;
         // int = strategy id
         event Action<int> SendMarketDepthEvent;
-        event Action<BarRequest> SendReqHistBarEvent;
+        //event Action<BarRequest> SendReqHistBarEvent;
         // decimal price, int time, int label, and color
         event Action<decimal, int, string, System.Drawing.Color> SendChartLabelEvent;
         // StrategyBase id and indicator string

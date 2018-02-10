@@ -157,7 +157,7 @@ namespace TradingBase
                 _firsttime = k.Time;
             if (_livecheck && (_ticks++ > CheckLiveAfterTickCount))
             {
-                bool dmatch = k.Date == Util.ToIntDate(DateTime.Now);
+                bool dmatch = k.Date == DateTime.Now;
                 bool tmatch = Util.IntTimeDiff(k.Time, Util.ToIntTime(DateTime.Now)) < CheckLiveMaxDelaySec;
                 _islive = dmatch && tmatch;
                 _livecheck = false;

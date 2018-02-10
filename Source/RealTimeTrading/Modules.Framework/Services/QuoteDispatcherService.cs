@@ -69,7 +69,7 @@ namespace Modules.Framework.Services
             // .BufferWithTime(TimeSpan.FromMilliseconds(_od))
             // .Where(x => x.Count > 0)
             // .Subscribe(DataReceived, LogError);
-            tickObservable.Where(e => e.Value.IsTrade).GroupBy(e => e.Value.FullSymbol)
+            tickObservable.Where(e => e.Value.TickType==TickType.TRADE).GroupBy(e => e.Value.FullSymbol)
                 .Subscribe(group => group.Sample(TimeSpan.FromSeconds(sampletime_))
                     .Subscribe(QuoteDispatcher));
         }

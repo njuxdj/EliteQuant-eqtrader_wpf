@@ -61,10 +61,10 @@ namespace Modules.OrderAndPositions.ViewModel
             _ordertracker.SendDebugEvent += OnDebug;
             _positiontracker = new PositionTracker(_configmanager.DailyOrderCapacity);
 
-            _eventaggregator.GetEvent<InitialPositionEvent>().Subscribe(ClientGotInitialPosition);
+            _eventaggregator.GetEvent<PositionEvent>().Subscribe(ClientGotInitialPosition);
             //_eventaggregator.GetEvent<SendOrderEvent>().Subscribe(ClientGotOrder);
-            _eventaggregator.GetEvent<OrderConfirmationEvent>().Subscribe(ClientGotOrder);
-            _eventaggregator.GetEvent<OrderCancelConfirmationEvent>().Subscribe(ClientGotOrderCancelConfirmation);
+            _eventaggregator.GetEvent<OrderStatusEvent>().Subscribe(ClientGotOrder);
+            _eventaggregator.GetEvent<OrderStatusEvent>().Subscribe(ClientGotOrderCancelConfirmation);
             _eventaggregator.GetEvent<OrderFillEvent>().Subscribe(ClientGotOrderFilled);
             _eventaggregator.GetEvent<GenerateReportEvent>().Subscribe(GeneratePerformanceReport);
 
@@ -121,8 +121,9 @@ namespace Modules.OrderAndPositions.ViewModel
             });
         }
 
-        private void ClientGotOrderCancelConfirmation(long oid)
+        private void ClientGotOrderCancelConfirmation(Order order)
         {
+            long oid=order.Id;
             int pos = OrderTable.Select(row => row.OrderId).ToList().IndexOf(oid);
 
             System.Windows.Application.Current.Dispatcher.Invoke(() =>

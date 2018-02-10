@@ -1,0 +1,12 @@
+D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\ClassicStrategies.csprojResolveAssemblyReference.cache
+D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\ClassicStrategies.csproj.CoreCompileInputs.cache
+D:\Workspace\EliteQuant-eqtrader_wpf\Source\TradingStrategies\ClassicStrategies\bin\Debug\ClassicStrategies.dll
+D:\Workspace\EliteQuant-eqtrader_wpf\Source\TradingStrategies\ClassicStrategies\bin\Debug\ClassicStrategies.pdb
+D:\Workspace\EliteQuant-eqtrader_wpf\Source\TradingStrategies\ClassicStrategies\bin\Debug\TechnicalAnalysisEngine.dll
+D:\Workspace\EliteQuant-eqtrader_wpf\Source\TradingStrategies\ClassicStrategies\bin\Debug\TradingBase.dll
+D:\Workspace\EliteQuant-eqtrader_wpf\Source\TradingStrategies\ClassicStrategies\bin\Debug\YamlDotNet.dll
+D:\Workspace\EliteQuant-eqtrader_wpf\Source\TradingStrategies\ClassicStrategies\bin\Debug\TechnicalAnalysisEngine.pdb
+D:\Workspace\EliteQuant-eqtrader_wpf\Source\TradingStrategies\ClassicStrategies\bin\Debug\TradingBase.pdb
+D:\Workspace\EliteQuant-eqtrader_wpf\Source\TradingStrategies\ClassicStrategies\bin\Debug\YamlDotNet.xml
+D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\ClassicStrategies.dll
+D:\Workspace\EliteQuant-eqtrader_wpf\Programs\obj\Debug\ClassicStrategies.pdb

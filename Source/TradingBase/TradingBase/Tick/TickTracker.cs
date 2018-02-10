@@ -66,23 +66,23 @@ namespace TradingBase
             }
                 
             
-            _lastdates[s] = k.Date;
-            _lasttimes[s] = k.Time;
+            _lastdates[s] = k.Date.Day;
+            _lasttimes[s] = (int)k.Time;
 
-            if (k.IsTrade)
+            if (k.TickType==TickType.TRADE)
             {
-                _trades[s] = k.TradePrice;
-                _tradesizes[s] = k.TradeSize;
+                _trades[s] = k.Price;
+                _tradesizes[s] = k.Size;
             }
-            if (k.HasAsk)
+            if (k.TickType == TickType.FULL || k.TickType == TickType.ASK)
             {
-                _asks[s] = k.AskPrice;
-                _asksizes[s] = k.AskSize;
+                _asks[s] = k.AskPriceL1;
+                _asksizes[s] = k.AskSizeL1;
             }
-            if (k.HasBid)
+            if (k.TickType == TickType.FULL || k.TickType == TickType.BID)
             {
-                _bids[s] = k.BidPrice;                    
-                _bidsizes[s] = k.BidSize;
+                _bids[s] = k.BidPriceL1;                    
+                _bidsizes[s] = k.BidSizeL1;
             }
         }
 
@@ -114,14 +114,13 @@ namespace TradingBase
             {
                 if (!IsTracked(symbol)) return new Tick();
                 Tick k = new Tick(symbol);
-                k.Date = _lastdates[symbol];
                 k.Time = _lasttimes[symbol];
-                k.TradePrice = _trades[symbol];
-                k.TradeSize = _tradesizes[symbol];
-                k.BidPrice = _bids[symbol];
-                k.BidSize = _bidsizes[symbol];
-                k.AskPrice = _asks[symbol];
-                k.AskSize = _asksizes[symbol];
+                k.Price = _trades[symbol];
+                k.Size = _tradesizes[symbol];
+                k.BidPriceL1 = _bids[symbol];
+                k.BidSizeL1 = _bidsizes[symbol];
+                k.AskPriceL1 = _asks[symbol];
+                k.AskSizeL1 = _asksizes[symbol];
                 return k;
             }
         }
