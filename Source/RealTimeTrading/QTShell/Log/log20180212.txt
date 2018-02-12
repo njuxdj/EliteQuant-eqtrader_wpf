@@ -1,0 +1,21 @@
+2018-02-12 22:23:05,766 [1] DEBUG QTShell.Log4NetLoggerAdapter Logger was created successfully.
+2018-02-12 22:23:05,772 [1] DEBUG QTShell.Log4NetLoggerAdapter Creating module catalog.
+2018-02-12 22:23:05,773 [1] DEBUG QTShell.Log4NetLoggerAdapter Configuring module catalog.
+2018-02-12 22:23:05,789 [1] DEBUG QTShell.Log4NetLoggerAdapter Creating Unity container.
+2018-02-12 22:23:05,819 [1] DEBUG QTShell.Log4NetLoggerAdapter Configuring the Unity container.
+2018-02-12 22:23:05,829 [1] DEBUG QTShell.Log4NetLoggerAdapter Adding UnityBootstrapperExtension to container.
+2018-02-12 22:23:05,894 [1] DEBUG QTShell.Log4NetLoggerAdapter Configuring ServiceLocator singleton.
+2018-02-12 22:23:05,894 [1] DEBUG QTShell.Log4NetLoggerAdapter Configuring region adapters.
+2018-02-12 22:23:05,900 [1] DEBUG QTShell.Log4NetLoggerAdapter Configuring default region behaviors.
+2018-02-12 22:23:05,901 [1] DEBUG QTShell.Log4NetLoggerAdapter Registering Framework Exception Types.
+2018-02-12 22:23:05,901 [1] DEBUG QTShell.Log4NetLoggerAdapter Creating the shell.
+2018-02-12 22:23:05,952 [1] DEBUG QTShell.Log4NetLoggerAdapter Setting the RegionManager.
+2018-02-12 22:23:05,953 [1] DEBUG QTShell.Log4NetLoggerAdapter Updating Regions.
+2018-02-12 22:23:05,968 [1] DEBUG QTShell.Log4NetLoggerAdapter Initializing the shell.
+2018-02-12 22:23:06,098 [1] DEBUG QTShell.Log4NetLoggerAdapter Initializing modules.
+2018-02-12 22:23:06,227 [1] INFO  QTShell.Log4NetLoggerAdapter Module ModuleOrderAndPositions Loaded
+2018-02-12 22:23:06,237 [1] INFO  QTShell.Log4NetLoggerAdapter Module RealTimeQuoteGrid Loaded
+2018-02-12 22:23:06,256 [1] INFO  QTShell.Log4NetLoggerAdapter Module ModuleStrategyManager Loaded
+2018-02-12 22:23:06,363 [1] INFO  QTShell.Log4NetLoggerAdapter Module ModuleOrderTicket Loaded
+2018-02-12 22:23:06,409 [1] INFO  QTShell.Log4NetLoggerAdapter Module ModuleFramework Loaded
+2018-02-12 22:23:06,412 [1] DEBUG QTShell.Log4NetLoggerAdapter Bootstrapper sequence completed.

@@ -4,15 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d">
-    <Grid Background="{StaticResource LightBackground}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <GroupBox Header="Automatic" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="3">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="25"></RowDefinition>
-                </Grid.RowDefinitions>
+    <Grid Background="{StaticResource LightBackground}" MinWidth="200" MinHeight="200" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0" Header="Automatic"  Margin="3"></GroupBox>
 
-                <DataGrid Grid.Row="0" Name="dgStrategies" ItemsSource="{Binding Path=StrategyItemList}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="false" CanUserSortColumns="False" HorizontalAlignment="Stretch">
+        <DataGrid Grid.Row="1" Name="dgStrategies" ItemsSource="{Binding Path=StrategyItemList}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserReorderColumns="false" CanUserSortColumns="False" HorizontalAlignment="Stretch">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="SID" Binding="{Binding Path=SID}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Name" Binding="{Binding Path=SName}"></DataGridTextColumn>
@@ -21,22 +21,20 @@
                     <DataGridTextColumn Header="Open PnL" Binding="{Binding Path=OpenPnL}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Close PnL" Binding="{Binding Path=ClosePnL}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Status" Binding="{Binding Path=Status}"></DataGridTextColumn>
-                  
+
                 </DataGrid.Columns>
             </DataGrid>
-            <Grid Grid.Row="1" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="25*"/>
-                    <ColumnDefinition Width="25*"/>
-                    <ColumnDefinition Width="25*"/>
-                    <ColumnDefinition Width="25*"/>
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="Start" BorderThickness="2" Margin="2,1,2,1"></Button>
-                    <Button Grid.Column="1" Content="Pause" BorderThickness="2" Margin="2,1,2,1"></Button>
-                    <Button Grid.Column="2" Content="Stop" BorderThickness="2" Margin="2,1,2,1"></Button>
-                    <Button Grid.Column="3" Content="Liquidate" BorderThickness="2" Margin="2,1,2,1"></Button>
-            </Grid>
+        <Grid Grid.Row="2" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="25*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="Start" BorderThickness="2" Margin="2,1,2,1"></Button>
+            <Button Grid.Column="1" Content="Pause" BorderThickness="2" Margin="2,1,2,1"></Button>
+            <Button Grid.Column="2" Content="Stop" BorderThickness="2" Margin="2,1,2,1"></Button>
+            <Button Grid.Column="3" Content="Liquidate" BorderThickness="2" Margin="2,1,2,1"></Button>
         </Grid>
-        </GroupBox>
     </Grid>
 </UserControl>

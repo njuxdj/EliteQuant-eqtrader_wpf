@@ -30,9 +30,9 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="30*"/>
             </Grid.RowDefinitions>
-            <ContentControl Grid.Row="0" x:Name="OrderRegion" VerticalAlignment="Stretch" prism:RegionManager.RegionName="OrderRegion"></ContentControl>
+            <ContentControl Grid.Row="0" x:Name="OrderRegion" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" prism:RegionManager.RegionName="OrderRegion"></ContentControl>
             <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Height="5" Background="#FFBCBCBC"></GridSplitter>
-            <ContentControl Grid.Row="2" x:Name="StrategyRegion" VerticalAlignment="Stretch" prism:RegionManager.RegionName="StrategyRegion"></ContentControl>
+            <ContentControl Grid.Row="2" x:Name="StrategyRegion" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" prism:RegionManager.RegionName="StrategyRegion"></ContentControl>
         </Grid>
 
     </Grid>

@@ -5,17 +5,33 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d">
+    <!--Grid Background="{StaticResource LightBackground}" MinWidth="200" MinHeight="200" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0" Header="Discretionary"  Margin="10,10,10,10">
+        </GroupBox>
+        <Grid>
+            <Grid.RowDefinitions></Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="130"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+        </Grid>
 
-    <StackPanel Orientation="Vertical" Background="{StaticResource LightBackground}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <GroupBox Header="Discretionary" HorizontalAlignment="Left" Margin="10,10,10,10">
-            <StackPanel Orientation="Vertical" Background="{StaticResource LightBackground}">
+    </Grid!-->
+    <StackPanel Orientation="Vertical" Background="{StaticResource LightBackground}" >
+        <GroupBox Header="Discretionary"  Margin="10,10,10,10">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" Background="{StaticResource LightBackground}">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Symbol" Foreground="{StaticResource Foreground}" Margin="10,10,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                    <TextBox Margin="20,10,0,0" Height="30" Width="100" Text="{Binding FullSymbol, Mode=TwoWay}" ></TextBox>
+                    <TextBox Margin="20,10,0,0" Height="30"  Width="120" Text="{Binding FullSymbol, Mode=TwoWay}" ></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Name" Foreground="{StaticResource Foreground}" Margin="10,10,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                    <TextBox Margin="20,10,0,0" Height="30" Width="100" Text="{Binding Name, Mode=TwoWay}" ></TextBox>
+                    <TextBox Margin="20,10,0,0" Height="30" Width="120" Text="{Binding Name, Mode=TwoWay}" ></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Security Type" Foreground="{StaticResource Foreground}" Margin="10,10,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
@@ -45,11 +61,11 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Price" Foreground="{StaticResource Foreground}" Margin="10,10,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                    <xctk:DecimalUpDown Foreground="{StaticResource Foreground}" Background="{StaticResource LightBackground}" FormatString="C2" Value="{Binding Price, Mode=TwoWay}"  Increment="0.01" Minimum="0.01" Margin="20,10,0,0" Height="30" Width="100"/>
+                    <xctk:DecimalUpDown Foreground="{StaticResource Foreground}" Background="{StaticResource LightBackground}" FormatString="C2" Value="{Binding Price, Mode=TwoWay}"  Increment="0.01" Minimum="0.01" Margin="20,10,0,0" Height="30" Width="120"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Quantity" Foreground="{StaticResource Foreground}" Margin="10,10,0,0" Height="30" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                    <xctk:IntegerUpDown Foreground="{StaticResource Foreground}" Background="{StaticResource LightBackground}" FormatString="N0" Value="{Binding Size, Mode=TwoWay}"  Increment="{Binding SizeIncrement}" Margin="20,10,10,10" Height="30" Width="100"/>
+                    <xctk:IntegerUpDown Foreground="{StaticResource Foreground}" Background="{StaticResource LightBackground}" FormatString="N0" Value="{Binding Size, Mode=TwoWay}"  Increment="{Binding SizeIncrement}" Margin="20,10,10,10" Height="30" Width="120"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="OrderType" Foreground="{StaticResource Foreground}" Margin="10,10,0,0" Height="30" Width="120"  HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"></Label>
@@ -71,7 +87,7 @@
                     </ComboBox>
                 </StackPanel>
 
-                <Button Content="Place Order" Command="{Binding PlaceOrderCmd}"></Button>
+                <Button Content="Place Order"  Command="{Binding PlaceOrderCmd}" Margin="10" MinHeight="30" Width="260" HorizontalAlignment="Left" VerticalAlignment="Center"></Button>
             </StackPanel>
         </GroupBox>
     </StackPanel>
