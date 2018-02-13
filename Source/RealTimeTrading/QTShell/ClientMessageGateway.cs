@@ -1,6 +1,7 @@
 ﻿using Microsoft.Practices.Prism.Logging;
 using Microsoft.Practices.Prism.PubSubEvents;
 using Modules.Framework.Events;
+using Modules.OrderAndPositions.Model;
 using NNanomsg;
 using NNanomsg.Protocols;
 using System;
@@ -77,11 +78,17 @@ namespace QTShell
                     if (v[0] == "s")
                     {
                         Order order = new Order();
+                        order.Id = Convert.ToInt32(v[1]);
+                        order.OrderStatus = (OrderStatus)Enum.Parse(typeof(OrderStatus),v[2]);
                         _eventaggregator.GetEvent<OrderStatusEvent>().Publish(order);
                     }
                     else if (v[0] == "f")
                     {
                         Order order = new Order();
+                        order.Id= Convert.ToInt32(v[1]);
+                        order.TradeTime= Convert.ToInt32(v[2]);
+                        order.TradePrice = Convert.ToDecimal(v[3]);
+                        order.TradeSize = Convert.ToInt32(v[4]);
                         _eventaggregator.GetEvent<OrderFillEvent>().Publish(order);
                        
                     }
@@ -98,11 +105,23 @@ namespace QTShell
                     }
                     else if (v[0] == "h")
                     {
+
                         _eventaggregator.GetEvent<HistoricalEvent>().Publish(generalmsg);
                     }
                     else if (v[0] == "u")
                     {
-                        _eventaggregator.GetEvent<AccountEvent>().Publish(generalmsg);
+                        AccountEntry account = new AccountEntry();
+                        account.AccountId = v[1];
+                        account.YestNet=Convert.ToDecimal(v[2]);
+                        account.Net = Convert.ToDecimal(v[3]);
+                        account.Available = Convert.ToDecimal(v[4]);
+                        account.Commision = Convert.ToDecimal(v[5]);
+                        account.Margin = Convert.ToDecimal(v[6]);
+                        account.ClosedPnL = Convert.ToDecimal(v[7]);
+                        account.OpenPnL = Convert.ToDecimal(v[8]);
+                        //account.Brokerage = 
+                        account.Time =v[8];
+                        _eventaggregator.GetEvent<AccountEvent>().Publish(account);
                     }
                     else if (v[0] == "r")
                     {

@@ -62,7 +62,7 @@ namespace Modules.StrategyManager.ViewModel
             _eventAggregator.GetEvent<PositionEvent>().Subscribe(ClientGotInitialPosition);
             
             //_eventaggregator.GetEvent<SendOrderEvent>().Subscribe(ClientGotOrder);
-            _eventAggregator.GetEvent<OrderStatusEvent>().Subscribe(ClientGotOrder);
+            _eventAggregator.GetEvent<OrderStatusEvent>().Subscribe(ClientGotOrderStatus);
             _eventAggregator.GetEvent<OrderStatusEvent>().Subscribe(ClientGotOrderCancelConfirmation);
             _eventAggregator.GetEvent<OrderFillEvent>().Subscribe(ClientGotOrderFilled);
 
@@ -213,7 +213,7 @@ namespace Modules.StrategyManager.ViewModel
         }
         
 
-        private void ClientGotOrder(Order o)
+        private void ClientGotOrderStatus(Order o)
         {
             foreach (StrategyItem si in _strategyitemlist)
             {

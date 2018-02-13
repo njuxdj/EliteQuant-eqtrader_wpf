@@ -39,10 +39,11 @@ namespace Modules.OrderAndPositions.ViewModel
         private OrderTable _ordertable = new OrderTable();
         private PositionTable _positiontable = new PositionTable();
         private FillTable _filltable = new FillTable();
+        private AccountTable _accountTable = new AccountTable();
         System.Data.DataTable _logTable = new System.Data.DataTable("LogTable");
         //private ResultTable _resulttable = new ResultTable();
         System.Data.DataTable _resultstable = new System.Data.DataTable("ResultsTable");
-
+       
         private EventAggregator _eventaggregator;
         private readonly ILoggerFacade _logger;
         private ConfigManager _configmanager;
@@ -64,9 +65,12 @@ namespace Modules.OrderAndPositions.ViewModel
 
             _eventaggregator.GetEvent<PositionEvent>().Subscribe(ClientGotInitialPosition);
             //_eventaggregator.GetEvent<SendOrderEvent>().Subscribe(ClientGotOrder);
-            _eventaggregator.GetEvent<OrderStatusEvent>().Subscribe(ClientGotOrder);
+            _eventaggregator.GetEvent<OrderStatusEvent>().Subscribe(ClientGotOrderStaus);
             _eventaggregator.GetEvent<OrderStatusEvent>().Subscribe(ClientGotOrderCancelConfirmation);
             _eventaggregator.GetEvent<OrderFillEvent>().Subscribe(ClientGotOrderFilled);
+            _eventaggregator.GetEvent<HistoricalEvent>().Subscribe(ClientGotHistoricalData);
+            _eventaggregator.GetEvent<AccountEvent>().Subscribe(ClientGotAccount);
+            _eventaggregator.GetEvent<ContractEvent>().Subscribe(ClientGotContract);
             _eventaggregator.GetEvent<GenerateReportEvent>().Subscribe(GeneratePerformanceReport);
             _eventaggregator.GetEvent<GeneralMessageEvent>().Subscribe(ClientGotGeneralMessage);
 
@@ -75,6 +79,24 @@ namespace Modules.OrderAndPositions.ViewModel
 
             _logTable.Columns.Add("Time");
             _logTable.Columns.Add("Content");
+            
+
+        }
+
+        private void ClientGotContract(string obj)
+        {
+            //TODO:xiedj 2018-2-13 show contract info on UI. 
+        }
+
+        private void ClientGotAccount(object obj)
+        {
+            var account = (AccountEntry)obj;
+            AccountTable.Add(account);
+        }
+
+        private void ClientGotHistoricalData(string obj)
+        {
+           //TODO:xiedj 2018-2-13 store historical data to localstorage 
         }
 
         private void ClientGotGeneralMessage(GeneralMessage obj)
@@ -111,7 +133,7 @@ namespace Modules.OrderAndPositions.ViewModel
             _positiontracker.Adjust(obj);
         }
 
-        private void ClientGotOrder(Order o)
+        private void ClientGotOrderStaus(Order o)
         {
             int pos = OrderTable.Select(row => row.OrderId).ToList().IndexOf(o.Id);
 
@@ -120,8 +142,7 @@ namespace Modules.OrderAndPositions.ViewModel
                 if (pos == -1)      // not found
                 {
                     OnDebug("Order id " + o.Id.ToString() + " is not found in order table; possibly new order.");
-                    // it must be previous open order, or placed by tws
-                    // add to _ordertracker
+                   
                     _ordertracker.GotOrder(o);
                     // update status
                     // TODO: 2018/02/05 正确的Order
@@ -273,6 +294,12 @@ namespace Modules.OrderAndPositions.ViewModel
 
         public System.Data.DataTable LogTable { get { return _logTable; } }
 
+        public AccountTable AccountTable
+        {
+            get { return this._accountTable; }
+            set { SetProperty(ref this._accountTable, value); }
+        }
+        
     }
 
 }

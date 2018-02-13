@@ -60,7 +60,7 @@ namespace Modules.Framework.Events
     public class HistoricalEvent : PubSubEvent<string>
     {
     }
-    public class AccountEvent : PubSubEvent<string>
+    public class AccountEvent : PubSubEvent<object>
     {
     }
     public class ContractEvent : PubSubEvent<string>

@@ -21,7 +21,7 @@
                 <DataGrid Name="dgPosition"  ItemsSource="{Binding Path=PositionTable}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False"></DataGrid>
             </TabItem>
             <TabItem Header="Account">
-                <DataGrid Name="dgAccount"  ItemsSource="{Binding Path=ResultTable}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False"></DataGrid>
+                <DataGrid Name="dgAccount"  ItemsSource="{Binding Path=AccountTable}" SelectionUnit="FullRow" HorizontalAlignment="Stretch" CanUserAddRows="False" CanUserReorderColumns="false" AutoGenerateColumns="True" CanUserSortColumns="False"></DataGrid>
             </TabItem>
         </TabControl>
     </Grid>

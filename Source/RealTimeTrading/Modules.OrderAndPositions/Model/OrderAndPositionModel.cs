@@ -470,6 +470,7 @@ namespace Modules.OrderAndPositions.Model
     }
 
     public class FillTable : ObservableCollection<FillEntry> {}
+    
 
     public class PositionEntry : INotifyPropertyChanged
     {
@@ -570,32 +571,131 @@ namespace Modules.OrderAndPositions.Model
 
     public class AccountEntry : INotifyPropertyChanged
     {
-        private string _statistics;
-        private string _result;
+        private string _accountId;
+        private decimal _yestnet;
+        private decimal _net;
+        private decimal _available;
+        private decimal _commision; //佣金
+        private decimal _margin;    //保证金
+        private decimal _closedPnl;
+        private decimal _openPnl;
+        private string _brokerage;
+        private string _api;
+        private string _time;
 
-        public string Statistics
+        public string AccountId
         {
-            get { return _statistics; }
+            get { return _accountId; }
             set
             {
-                _statistics = value;
+                _accountId = value;
                 // Call OnPropertyChanged whenever the property is updated
-                OnPropertyChanged("Statistics");
+                OnPropertyChanged("AccountId");
             }
         }
 
-        public string Result
+        public decimal YestNet
         {
-            get { return _result; }
+            get { return _yestnet; }
             set
             {
-                _result = value;
+                _yestnet = value;
                 // Call OnPropertyChanged whenever the property is updated
-                OnPropertyChanged("Result");
+                OnPropertyChanged("YestNet");
+            }
+        }
+        public decimal Net
+        {
+            get { return _net; }
+            set
+            {
+                _net = value;
+                // Call OnPropertyChanged whenever the property is updated
+                OnPropertyChanged("Net");
             }
         }
 
-         // Declare the event 
+        public decimal Available
+        {
+            get { return _available; }
+            set
+            {
+                _available = value;
+                // Call OnPropertyChanged whenever the property is updated
+                OnPropertyChanged("Available");
+            }
+        }
+        public decimal Commision
+        {
+            get { return _commision; }
+            set
+            {
+                _commision = value;
+                // Call OnPropertyChanged whenever the property is updated
+                OnPropertyChanged("Commision");
+            }
+        }
+        public decimal Margin
+        {
+            get { return _margin; }
+            set
+            {
+                _margin = value;
+                // Call OnPropertyChanged whenever the property is updated
+                OnPropertyChanged("Margin");
+            }
+        }
+        public decimal ClosedPnL
+        {
+            get { return _closedPnl; }
+            set
+            {
+                _closedPnl = value;
+                // Call OnPropertyChanged whenever the property is updated
+                OnPropertyChanged("ClosedPnL");
+            }
+        }
+        public decimal OpenPnL
+        {
+            get { return _openPnl; }
+            set
+            {
+                _openPnl = value;
+                // Call OnPropertyChanged whenever the property is updated
+                OnPropertyChanged("OpenPnL");
+            }
+        }
+        public string Brokerage
+        {
+            get { return _brokerage; }
+            set
+            {
+                _brokerage = value;
+                // Call OnPropertyChanged whenever the property is updated
+                OnPropertyChanged("Brokerage");
+            }
+        }
+        public string API
+        {
+            get { return _api; }
+            set
+            {
+                _api = value;
+                // Call OnPropertyChanged whenever the property is updated
+                OnPropertyChanged("API");
+            }
+        }
+        public string Time
+        {
+            get { return _time; }
+            set
+            {
+                _time = value;
+                // Call OnPropertyChanged whenever the property is updated
+                OnPropertyChanged("Time");
+            }
+        }
+        // Declare the event 
         public event PropertyChangedEventHandler PropertyChanged;
 
         // Create the OnPropertyChanged method to raise the event 
